@@ -15,9 +15,13 @@ working_path = "C:/Users/adity/OneDrive/Desktop/OS-CN"
 
 os.chdir(working_path)
 
+#s.bind(('192.168.1.5',9999))
 s.bind(('localhost',9999))
 
+
 def create_file(filename):
+    if os.path.exists(filename):
+        return "File name already exists."
     return_statement ="File created. Files in directory now: \n"
     fp = open(filename, 'w')
     file_list = os.listdir()
@@ -26,6 +30,8 @@ def create_file(filename):
         return_statement += " "
     fp.close()
     return return_statement
+
+
     
 def edit_file(filename,content):
     if os.path.exists(filename):
@@ -36,6 +42,8 @@ def edit_file(filename,content):
     else:
         return "The file doesn't exist."
 
+
+
 def delete_file(filename):
     if os.path.exists(filename):
         os.remove(filename)
@@ -43,6 +51,8 @@ def delete_file(filename):
     else:
         return "The file doesn't exist. "
     
+    
+
 def read_file(filename):
     if os.path.exists(filename):
         fp = open(filename, 'r')
@@ -51,6 +61,8 @@ def read_file(filename):
         return return_statement
     else:
         return "The file doesn't exist. "
+
+
 
 s.listen(3)
 print('waiting for connections')
@@ -73,18 +85,17 @@ while run_server:
         message = delete_file(command_list[1])
     elif "read" in command_list:
         message = read_file(command_list[1])
+    elif "exit" in command_list:
+        run_server = False
+        message = "Exiting..."
+        print(message)
     else:
         print("Message passed is "+str)
     
     c.send(bytes(message,'utf-8'))
     c.close()
-    
-    choice = input("Enter 'yes' to continue or 'no' to stop server.: ")
-    if choice == 'yes':
-        run_server = True
-    else:
-        run_server = False
-        
+
+s.close()
     
     
 
