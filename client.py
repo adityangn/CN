@@ -4,7 +4,6 @@ Created on Wed Dec 29 19:07:23 2021
 
 @author: Aditya Navin Nair and Ashwin MS
 """
-
 import socket
 
 run_client = True
@@ -21,6 +20,5 @@ while run_client:
         run_client = False
     else:
         run_client = True
-
 
 
