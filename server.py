@@ -75,7 +75,7 @@ while run_server:
     str=c.recv(1024).decode()
     print('Connected with ',addr)
     print("Command received: " + str)
-    command_list = str.split(" ",2)
+    command_list = str.split("_")
     
     if "create" in command_list:
         message = create_file(command_list[1])
@@ -97,5 +97,3 @@ while run_server:
 
 s.close()
     
-    
-
