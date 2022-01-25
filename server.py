@@ -11,12 +11,13 @@ import os
 s=socket.socket()
 print("Socket created")
 
-working_path = "C:/Users/adity/OneDrive/Desktop/OS-CN"
+working_path = "/mnt/c/Users/adity/OneDrive/Desktop/OS-CN" 
+#working_path = "C:/Users/adity/OneDrive/Desktop/OS-CN"
 
 os.chdir(working_path)
 
-#s.bind(('192.168.1.5',9999))
 s.bind(('localhost',9999))
+#s.bind(('localhost',9999))
 
 
 def create_file(filename):
@@ -45,9 +46,14 @@ def edit_file(filename,content):
 
 
 def delete_file(filename):
+    return_statement = "File is deleted. Files in directory now: \n"
     if os.path.exists(filename):
         os.remove(filename)
-        return "File is deleted"
+        file_list = os.listdir()
+        for file in file_list:
+           return_statement += file
+           return_statement += " "
+        return return_statement
     else:
         return "The file doesn't exist. "
     
@@ -75,7 +81,7 @@ while run_server:
     str=c.recv(1024).decode()
     print('Connected with ',addr)
     print("Command received: " + str)
-    command_list = str.split("_")
+    command_list = str.split(" ",2)
     
     if "create" in command_list:
         message = create_file(command_list[1])
